@@ -17,17 +17,21 @@ class MyGraph:
     def get_edges(self):
         return self.graph.edges
 
-    def DFS(self, delay, curr, target, path):
+    def DFS(self, total_delay, start, end):
+        '''Obtain paths with total delays equal to the user's requirements.'''
+        return self._DFS(total_delay, start, end, [])
+
+    def _DFS(self, delay, curr, target, path):
         if (delay == 0 and curr == target):
-            print (path)
+            print (path) # The target was reached
             return
         if (delay <= 0):
-            return
+            return # A dead end was reached
         for neighbor in list(self.graph.neighbors(curr)):
             edge_delay = self.graph.edges[curr, neighbor]['delay']
-            path.append((curr, neighbor))
-            self.DFS(delay - edge_delay, neighbor, target, path)
-            path.remove((curr, neighbor))
+            path.append((curr, neighbor)) # Found a potential path with this as the starting edge
+            self._DFS(delay - edge_delay, neighbor, target, path)
+            path.remove((curr, neighbor)) # Clean up after an end was reached (target or dead end)
 
 if __name__=="__main__":
     G = MyGraph()
@@ -37,5 +41,4 @@ if __name__=="__main__":
     for edge in G.get_edges().data():
         print (edge)
 
-    G.DFS(6, "User1", "User2", [])
-
+    G.DFS(total_delay=8, start="User1", end="User1")
