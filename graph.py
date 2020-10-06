@@ -19,7 +19,7 @@ class MyGraph:
 
     def DFS(self, total_delay, start, end):
         '''Obtain paths with total delays equal to the user's requirements.'''
-        return self._DFS(total_delay, start, end, [])
+        return self._DFS2(total_delay, start, end, [], 10)
 
     def _DFS(self, delay, curr, target, path):
         if (delay == 0 and curr == target):
@@ -31,6 +31,19 @@ class MyGraph:
             edge_delay = self.graph.edges[curr, neighbor]['delay']
             path.append((curr, neighbor)) # Found a potential path with this as the starting edge
             self._DFS(delay - edge_delay, neighbor, target, path)
+            path.remove((curr, neighbor)) # Clean up after an end was reached (target or dead end)
+
+    def _DFS2(self, delay, curr, target, path, error):
+        if (-error <= delay <= error and curr == target):
+            print (path)
+            print ("| off by: " + str(abs(delay))) # The target was reached
+            return
+        if (delay <= -error):
+            return # A dead end was reached
+        for neighbor in list(self.graph.neighbors(curr)):
+            edge_delay = self.graph.edges[curr, neighbor]['delay']
+            path.append((curr, neighbor)) # Found a potential path with this as the starting edge
+            self._DFS2(delay - edge_delay, neighbor, target, path, error)
             path.remove((curr, neighbor)) # Clean up after an end was reached (target or dead end)
 
 if __name__=="__main__":
