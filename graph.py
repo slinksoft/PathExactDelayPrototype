@@ -11,6 +11,7 @@ class MyGraph:
                 ('S6', 'User2', {'delay': 84}), ('S5', 'User2', {'delay': 29})]
         self.graph.add_edges_from(edges)
         self._result = {}
+        self.orig_start = None
 
     def get_nodes(self):
         return self.graph.nodes
@@ -26,15 +27,14 @@ class MyGraph:
 
         visits[start] = 1
 
+        self.orig_start = start
+
         self._DFS2(total_delay, start, end, [], error, visits)
         print(visits)
         return self._result
 
     def _DFS2(self, delay, curr, target, path, error, visits):
-        print(path)
-        print("----------------")
         if (-error <= delay <= error and curr == target and path != []):
-            print("FOUND")
             key = abs(delay) # The target was reached
             if key in self._result:
                 self._result[key].append(path.copy()) # Path must be copied or else it will get erased
@@ -42,7 +42,6 @@ class MyGraph:
                 self._result[key] = [path.copy()]
             return
         if (delay <= -error):
-            print("NOPE")
             return # A dead end was reached
         for neighbor in list(self.graph.neighbors(curr)):
             if (visits[str(neighbor)] < 3):
@@ -50,7 +49,7 @@ class MyGraph:
                 edge_delay = self.graph.edges[curr, neighbor]['delay']
                 path.append((curr, neighbor)) # Found a potential path with this as the starting edge
                 self._DFS2(delay - edge_delay, neighbor, target, path, error, visits)
-                path.remove((curr, neighbor)) # Clean up after an end was reached (target or dead end)
+                del path[-1] # Clean up after an end was reached (target or dead end)
                 visits[str(neighbor)] -= 1
 
 if __name__=="__main__":
@@ -61,7 +60,7 @@ if __name__=="__main__":
     for edge in G.get_edges().data():
         print (edge)
 
-    result = G.DFS(total_delay=350, start="User1", end="S4", error=2)
+    result = G.DFS(total_delay=350, start="User1", end="User2", error=2)
 
     for off_by, paths in result.items():
         print(f"Paths with delay off by {off_by}:")
