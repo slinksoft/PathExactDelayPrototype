@@ -11,7 +11,6 @@ class MyGraph:
                 ('S6', 'User2', {'delay': 84}), ('S5', 'User2', {'delay': 29})]
         self.graph.add_edges_from(edges)
         self._result = {}
-        self.orig_start = None
 
     def get_nodes(self):
         return self.graph.nodes
@@ -27,10 +26,7 @@ class MyGraph:
 
         visits[start] = 1
 
-        self.orig_start = start
-
         self._DFS2(total_delay, start, end, [], error, visits)
-        print(visits)
         return self._result
 
     def _DFS2(self, delay, curr, target, path, error, visits):
