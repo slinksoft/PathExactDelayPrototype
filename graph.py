@@ -10,8 +10,9 @@ class MyGraph:
                 ('S3', 'S6', {'delay': 96}), ('S4', 'S5', {'delay': 1}),
                 ('S6', 'User2', {'delay': 84}), ('S5', 'User2', {'delay': 29})]
         self.graph.add_edges_from(edges)
-        self._result = {}
+        self._result = []
         self._visit_limit = 2
+        self._result_capacity = 10
 
     def get_nodes(self):
         return self.graph.nodes
@@ -27,14 +28,26 @@ class MyGraph:
 
         visits[start] = 1
 
+        self._result = []
+
         self._DFS2(total_delay, start, end, [], visits)
-        return self._result
+        
+        result = []
+
+        for path in self._result:
+            result.append({"path":path["path"], "total_delay": total_delay - path["offset"]})
+
+        return result
 
     def _DFS2(self, delay, curr, target, path, visits):
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
-            if not bool(self._result) or error < self._result["error"]:
-                self._result = {"path":path.copy(), "error":error}
+            if not bool(self._result) or error < self._result[0]["error"]:
+                # The path in front is the one with the lowest error
+                self._result.insert(0, {"path":path.copy(), "error":error, "offset":delay})
+                # Ensure that the list is at most ten (10) elements in length
+                if len(self._result) > self._result_capacity:
+                    del self._result[-1]
             return
         for neighbor in list(self.graph.neighbors(curr)):
             if (visits[str(neighbor)] < self._visit_limit):
@@ -53,6 +66,6 @@ if __name__=="__main__":
     for edge in G.get_edges().data():
         print (edge)
 
-    result = G.DFS(total_delay=64, start="User1", end="User2")
+    result = G.DFS(total_delay=1, start="S4", end="S5")
     print("\nThe closest matching path is: ")
     print(f"| {result}")
