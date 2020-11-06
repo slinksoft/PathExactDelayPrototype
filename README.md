@@ -6,7 +6,9 @@ Create and activate a virtual environment. It is safe to create the virtual envi
 
 With the virtual environment active, run the following commands:
 > `pip3 install wheel`
+
 > `pip3 install setuptools`
+
 > `pip3 install twine`
 
 While in the root directory of this project, build the library:
