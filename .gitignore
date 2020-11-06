@@ -1,0 +1,8 @@
+dist/
+build/
+.vscode/
+.pytest_cache/
+.eggs/
+__pycache__/
+exactdelaypathfinder.egg-info/
+venv/
