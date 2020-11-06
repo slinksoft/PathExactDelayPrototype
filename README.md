@@ -18,3 +18,14 @@ Then install the built library with
 > `pip3 install pip uninstall path/to/BuildDistributionFile.whl`
 
 By default, the build distribution file is located within `dist/`.
+
+## How to Import and Use ExactDelayPathfinder
+
+```python
+from exactdelaypathfinder.core import ExactDelayPathfinder
+
+....
+
+EDPF = ExactDelayPathfinder()
+result = EDPF.search(G, 10, 'a', 'c')
+```
