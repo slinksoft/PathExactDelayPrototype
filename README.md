@@ -1,6 +1,6 @@
 This library was created by Florida International University's AMLight Team. Feel free to use this for commercial and private ends.
 
-## How to Build
+## How to Install
 
 Create and activate a virtual environment. It is safe to create the virtual environment folder at the root directory of this project.
 
