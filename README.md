@@ -1,4 +1,4 @@
-This library was created by Florida International University's AMLight Team. Feel free to use this for commercial and private ends.
+This library was created by Florida International University's AMLight Team. For commercial and personal use.
 
 This pathfinding tool uses [*NetworkX*](https://networkx.org/) graphs to find a list of paths with a total delay close to the user requirements - the first path in the list is the best match. 
 
