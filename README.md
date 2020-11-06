@@ -1,5 +1,7 @@
 This library was created by Florida International University's AMLight Team. Feel free to use this for commercial and private ends.
 
+This pathfinding tool uses [*NetworkX*](https://networkx.org/) graphs to find a list of paths with a total delay close to the user requirements - the first path in the list is the best match. 
+
 ## How to Install
 
 Create and activate a virtual environment. It is safe to create the virtual environment folder at the root directory of this project.
