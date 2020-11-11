@@ -17,7 +17,7 @@ While in the root directory of this project, build the library:
 > `python3 setup.py sdist bdist_wheel`
 
 Then install the built library with
-> `pip3 install pip uninstall path/to/BuildDistributionFile.whl`
+> `pip3 install path/to/BuildDistributionFile.whl`
 
 By default, the build distribution file is located within `dist/`.
 
@@ -31,3 +31,10 @@ from exactdelaypathfinder.core import ExactDelayPathfinder
 EDPF = ExactDelayPathfinder()
 result = EDPF.search(G, 10, 'a', 'c')
 ```
+
+## How to Uninstall
+
+While in the virtual environment, enter
+> `pip3 uninstall path/to/BuildDistributionFile.whl`
+
+By default, the build distribution file is located within `dist/`.
