@@ -3,7 +3,7 @@ class ExactDelayPathfinder:
         self._paths = []
         self._graph = None
         self._result_count = 0
-        self._visit_limit = 2
+        self._visit_limit = 1
 
     def search(self, graph, total_delay, start, end, result_count=10):
         '''Obtain paths with total delays equal or close to the user's requirements.'''
