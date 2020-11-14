@@ -7,7 +7,11 @@ class TestEDPF(unittest.TestCase):
 
     @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
     def test_search(self, mock_EDPF):
-        """ Tests the search function """
+        """ Tests the search function 
+        
+            Parameters:
+               mock_EDPF: Mock object reference of ExactDelayPathfinder
+        """
         new_mock_EDPF = mock_EDPF.return_value
         new_mock_EDPF.search.return_value = 42
         G = Mock()
