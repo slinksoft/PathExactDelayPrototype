@@ -12,6 +12,13 @@ class ExactDelayPathfinder:
         """ Obtain paths with total delays equal or close to the user's requirements.
            If you want more or less results, you can change the value of the 
            result_count parameter value in the function signature
+
+           Parameters:
+              graph: a networkx graph object
+              total_delay: the delay requirement for the result of the exact or closest path traversed
+              start: The starting node for the path
+              end: The end node for the path
+              result_count : the number of results returned from the search (default is 10)
         """
         if graph is None:
             raise AttributeError("The graph must not be NoneType")
@@ -48,6 +55,13 @@ class ExactDelayPathfinder:
         """ The depth-first search algorithm that will traverse the graph (topology)
            for the exact and closest paths based upon user-input propagation delay.
            This recursive function is called in the "search" function.
+
+           Parameters:
+              delay: the current delay that has been traversed so far (the function is recursive so think of it in that sense)
+              curr: The current node for the path we are on
+              target: The target node for the path we are making
+              path: the current path we have traversed
+              visits: Used to restrict the amount of visits on a node that has been previously traversed
         """
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
