@@ -9,9 +9,10 @@ class ExactDelayPathfinder:
         self._visit_limit = 1
 
     def search(self, graph, total_delay, start, end, result_count=10):
-        '''Obtain paths with total delays equal or close to the user's requirements.
+        """ Obtain paths with total delays equal or close to the user's requirements.
            If you want more or less results, you can change the value of the 
-           result_count parameter value in the function signature'''
+           result_count parameter value in the function signature
+        """
         if graph is None:
             raise AttributeError("The graph must not be NoneType")
 
@@ -44,9 +45,10 @@ class ExactDelayPathfinder:
         return result
 
     def _search(self, delay, curr, target, path, visits):
-        '''The depth-first search algorithm that will traverse the graph (topology)
+        """ The depth-first search algorithm that will traverse the graph (topology)
            for the exact and closest paths based upon user-input propagation delay.
-           This recursive function is called in the "search" function.'''
+           This recursive function is called in the "search" function.
+        """
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
             if not bool(self._paths) or error < self._paths[0]["error"]:

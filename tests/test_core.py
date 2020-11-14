@@ -7,7 +7,7 @@ class TestEDPF(unittest.TestCase):
 
     @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
     def test_search(self, mock_EDPF):
-        '''Tests the search function'''
+        """ Tests the search function """
         new_mock_EDPF = mock_EDPF.return_value
         new_mock_EDPF.search.return_value = 42
         G = Mock()
@@ -15,7 +15,7 @@ class TestEDPF(unittest.TestCase):
         new_mock_EDPF.search.assert_called()
 
     def test_small_topology_search(self):
-        '''Test search function (Exact Path Algorithm) with a small-scale topology'''
+        """ Test search function (Exact Path Algorithm) with a small-scale topology """
         mock_EDPF = ExactDelayPathfinder()
         G = Mock()
         G = nx.Graph()
