@@ -25,7 +25,8 @@ class TestEDPF(unittest.TestCase):
         G = nx.Graph()
         
         # The following is a small-scale topology we will use to test the
-        # algorithm's functionality and correctness
+        # algorithm's functionality and correctness. Modifying the nodes and edges (links)
+        # of the graph (topology) will affect the outcome of the test which may result in a failure.
         nodes = ['User1', 'S2', 'S3', 'S4', 'S5', 'S6', 'User2']
         G.add_nodes_from(nodes)
         edges = [('User1', 'S2', {'delay': 10}), ('User1', 'S3', {'delay': 37}),
