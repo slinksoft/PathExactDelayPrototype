@@ -3,10 +3,15 @@ class ExactDelayPathfinder:
         self._paths = []
         self._graph = None
         self._result_count = 0
+        
+        # Sets the limit of how many times a node can be visited when an edge
+        # is traversed. Can be change but not recommended to go above 3
         self._visit_limit = 1
 
     def search(self, graph, total_delay, start, end, result_count=10):
-        '''Obtain paths with total delays equal or close to the user's requirements.'''
+        '''Obtain paths with total delays equal or close to the user's requirements.
+           If you want more or less results, you can change the value of the 
+           result_count parameter value in the function signature'''
         if graph is None:
             raise AttributeError("The graph must not be NoneType")
 
@@ -39,12 +44,15 @@ class ExactDelayPathfinder:
         return result
 
     def _search(self, delay, curr, target, path, visits):
+        '''The depth-first search algorithm that will traverse the graph (topology)
+           for the exact and closest paths based upon user-input propagation delay.
+           This recursive function is called in the "search" function.'''
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
             if not bool(self._paths) or error < self._paths[0]["error"]:
                 # The path in front is the one with the lowest error
                 self._paths.insert(0, {"path":path.copy(), "error":error, "offset":delay})
-                # Ensure that the list is at most ten (10) elements in length
+                # Ensure that the list is at most the specified  number elements in length (default is 10)
                 if len(self._paths) > self._result_count:
                     del self._paths[-1]
             return
