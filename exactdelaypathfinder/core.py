@@ -2,20 +2,20 @@ class ExactDelayPathfinder:
     def __init__(self):
         self._paths = []
         self._graph = None
-        self._result_count = 0
+        self._max_results = 0
         self._visit_limit = 1
 
-    def search(self, graph, total_delay, start, end, result_count=10):
+    def search(self, graph, total_delay, start, end, max_results=10):
         '''Obtain paths with total delays equal or close to the user's requirements.'''
         if graph is None:
             raise AttributeError("The graph must not be NoneType")
 
-        if result_count < 0:
-            raise AttributeError("The result count must be a non-negative integer.")
+        if max_results < 0:
+            raise AttributeError("The result count limit must be a non-negative integer.")
 
         self._paths = []
         self._graph = graph
-        self._result_count = result_count
+        self._max_results = max_results
 
         # This list prevents excessive cycling in the pathfinding process
         visits = {}
@@ -42,17 +42,19 @@ class ExactDelayPathfinder:
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
             if not bool(self._paths) or error < self._paths[0]["error"]:
+                # The path is the node itself
+                path.append(curr)
                 # The path in front is the one with the lowest error
                 self._paths.insert(0, {"path":path.copy(), "error":error, "offset":delay})
                 # Ensure that the list is at most ten (10) elements in length
-                if len(self._paths) > self._result_count:
+                if len(self._paths) > self._max_results:
                     del self._paths[-1]
             return
         for neighbor in list(self._graph.neighbors(curr)):
             if (visits[str(neighbor)] < self._visit_limit):
                 visits[str(neighbor)] += 1
                 edge_delay = self._graph.edges[curr, neighbor]['delay']
-                path.append((curr, neighbor)) # Found a potential path with this as the starting edge
+                path.append(curr) # Found a potential path with this as the starting node
                 self._search(delay - edge_delay, neighbor, target, path, visits)
                 del path[-1] # Clean up after an end was reached (target or dead end)
                 visits[str(neighbor)] -= 1
