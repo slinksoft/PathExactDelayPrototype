@@ -22,10 +22,12 @@ class ExactDelayPathfinder:
         """
 
         if graph is None:
-            raise AttributeError("The graph must not be NoneType")
+            raise AttributeError("The graph must not be NoneType.")
 
         if max_results < 0:
             raise AttributeError("The result count limit must be a non-negative integer.")
+        if total_delay < 0:
+            raise AttributeError("The desired propagation delay must be a non-negative integer.")
 
         self._paths = []
         self._graph = graph
