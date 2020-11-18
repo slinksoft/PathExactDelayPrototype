@@ -1,30 +1,13 @@
 from unittest.mock import Mock, patch
 from core import ExactDelayPathfinder
-import unittest
+from unittest import TestCase
 import networkx as nx
 
-class TestEDPF(unittest.TestCase):
-
-    @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
-    def test_search(self, mock_EDPF):
-        """ Tests the search function 
-        
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
-        """
-        new_mock_EDPF = mock_EDPF.return_value
-        new_mock_EDPF.search.return_value = 42
-        G = Mock()
-        new_mock_EDPF.search(G, 10, 'a', 'b')
-        new_mock_EDPF.search.assert_called()
+class TestEDPF(TestCase):
         
     @patch.object(ExactDelayPathfinder, '_search')
     def test_search(self, mock_search):
-        """ Tests the _search function, the DFS algorithm (recursive method) 
-        
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
-        """
+        """ Test the _search function, the DFS algorithm (recursive method)."""
         new_EDPF = ExactDelayPathfinder()
         mock_search.return_value = []
 
@@ -37,34 +20,25 @@ class TestEDPF(unittest.TestCase):
         new_EDPF._search.assert_called()
 
     def test_search_graph_Error(self):
-        """ Tests the search function attribute errors for the graph input parameter 
-        
-        """
+        """Test the search function attribute errors for the graph input parameter."""
         EDPF = ExactDelayPathfinder()
         G = None
         self.assertRaises(AttributeError, EDPF.search, G, 10,'a', 'b')
-        
     
     def test_search_delay_Error(self):
-        """ Tests the search function attribute errors for the delay input parameter 
-        
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
-        """
+        """Test the search function attribute errors for the delay input parameter."""
         EDPF = ExactDelayPathfinder()
         G = Mock()
         self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b')
     
     def test_search_max_result_Error(self):
-        """ Tests the search function attribute errors for the max result parameter 
-        
-        """
+        """Tests the search function attribute errors for the max result parameter."""
         EDPF = ExactDelayPathfinder()
         G = Mock()
-        self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b', -5)
+        self.assertRaises(AttributeError, EDPF.search, G, 10,'a', 'b', -5)
             
     def test_small_topology_search(self):
-        """ Test search function (Exact Path Algorithm) with a small-scale topology """
+        """Test search function (Exact Path Algorithm) with a small-scale topology."""
         mock_EDPF = ExactDelayPathfinder()
         G = Mock()
         G = nx.Graph()
