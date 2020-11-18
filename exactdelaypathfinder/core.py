@@ -55,17 +55,6 @@ class ExactDelayPathfinder:
         return result
 
     def _search(self, delay, curr, target, path, visits):
-        """ The depth-first search algorithm that will traverse the graph (topology)
-           for the exact and closest paths based upon user-input propagation delay.
-           This recursive function is called in the "search" function.
-
-           Parameters:
-              delay: the current delay that has been traversed so far (the function is recursive so think of it in that sense)
-              curr: The current node for the path we are on
-              target: The target node for the path we are making
-              path: the current path we have traversed
-              visits: Used to restrict the amount of visits on a node that has been previously traversed
-        """
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
             if not bool(self._paths) or error < self._paths[0]["error"]:
