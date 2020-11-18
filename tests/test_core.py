@@ -34,39 +34,32 @@ class TestEDPF(unittest.TestCase):
         new_mock_EDPF._search(G, 64, 'a', 'b', [])
         new_mock_EDPF._search.assert_called_with(G, delay, start, end, visits=[])
 
-    @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
-    def test_search_graph_Error(self, mock_EDPF):
+    def test_search_graph_Error(self):
         """ Tests the search function attribute errors for the graph input parameter 
         
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
         """
-        new_mock_EDPF = ExactDelayPathfinder()
+        EDPF = ExactDelayPathfinder()
         G = None
-        self.assertRaises(AttributeError, new_mock_EDPF.search, G, 10,'a', 'b')
+        self.assertRaises(AttributeError, EDPF.search, G, 10,'a', 'b')
         
     
-    @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
-    def test_search_delay_Error(self, mock_EDPF):
+    def test_search_delay_Error(self):
         """ Tests the search function attribute errors for the delay input parameter 
         
             Parameters:
                mock_EDPF: Mock object reference of ExactDelayPathfinder
         """
-        new_mock_EDPF = ExactDelayPathfinder()
+        EDPF = ExactDelayPathfinder()
         G = Mock()
-        self.assertRaises(AttributeError, new_mock_EDPF.search, G, -10,'a', 'b')
+        self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b')
     
-    @patch('exactdelaypathfinder.core.ExactDelayPathfinder', autospec=True)
-    def test_search_max_result_Error(self, mock_EDPF):
+    def test_search_max_result_Error(self):
         """ Tests the search function attribute errors for the max result parameter 
         
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
         """
-        new_mock_EDPF = ExactDelayPathfinder()
+        EDPF = ExactDelayPathfinder()
         G = Mock()
-        self.assertRaises(AttributeError, new_mock_EDPF.search, G, -10,'a', 'b', -5)
+        self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b', -5)
             
     def test_small_topology_search(self):
         """ Test search function (Exact Path Algorithm) with a small-scale topology """
