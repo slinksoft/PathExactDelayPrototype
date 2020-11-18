@@ -35,6 +35,7 @@ class TestEDPF(unittest.TestCase):
         end = 'b'
         new_EDPF.search(G, 64, 'a', 'b')
         new_EDPF._search.assert_called()
+
     def test_search_graph_Error(self):
         """ Tests the search function attribute errors for the graph input parameter 
         
