@@ -3,15 +3,31 @@ class ExactDelayPathfinder:
         self._paths = []
         self._graph = None
         self._max_results = 0
+        
+        # Sets the limit of how many times a node can be visited when an edge
+        # is traversed. Can be change but not recommended to go above 3
         self._visit_limit = 1
 
     def search(self, graph, total_delay, start, end, max_results=10):
-        '''Obtain paths with total delays equal or close to the user's requirements.'''
+        """ Obtain paths with total delays equal or close to the user's requirements.
+           If you want more or less results, you can change the value of the 
+           result_count parameter value in the function signature
+
+           Parameters:
+              graph: a networkx graph object
+              total_delay: the delay requirement for the result of the exact or closest path traversed
+              start: The starting node for the path
+              end: The end node for the path
+              max_results : the number of results returned from the search (default is 10)
+        """
+
         if graph is None:
-            raise AttributeError("The graph must not be NoneType")
+            raise AttributeError("The graph must not be NoneType.")
 
         if max_results < 0:
             raise AttributeError("The result count limit must be a non-negative integer.")
+        if total_delay < 0:
+            raise AttributeError("The desired propagation delay must be a non-negative integer.")
 
         self._paths = []
         self._graph = graph
@@ -46,7 +62,7 @@ class ExactDelayPathfinder:
                 path.append(curr)
                 # The path in front is the one with the lowest error
                 self._paths.insert(0, {"path":path.copy(), "error":error, "offset":delay})
-                # Ensure that the list is at most ten (10) elements in length
+                # Ensure that the list is at most the specified number elements in length (default is 10)
                 if len(self._paths) > self._max_results:
                     del self._paths[-1]
             return
