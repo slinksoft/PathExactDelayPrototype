@@ -37,28 +37,20 @@ class TestEDPF(unittest.TestCase):
         new_EDPF._search.assert_called()
 
     def test_search_graph_Error(self):
-        """ Tests the search function attribute errors for the graph input parameter 
-        
-        """
+        """ Tests the search function attribute errors for the graph input parameter """
         EDPF = ExactDelayPathfinder()
         G = None
         self.assertRaises(AttributeError, EDPF.search, G, 10,'a', 'b')
         
     
     def test_search_delay_Error(self):
-        """ Tests the search function attribute errors for the delay input parameter 
-        
-            Parameters:
-               mock_EDPF: Mock object reference of ExactDelayPathfinder
-        """
+        """ Tests the search function attribute errors for the delay input parameter """
         EDPF = ExactDelayPathfinder()
         G = Mock()
         self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b')
     
     def test_search_max_result_Error(self):
-        """ Tests the search function attribute errors for the max result parameter 
-        
-        """
+        """ Tests the search function attribute errors for the max result parameter """
         EDPF = ExactDelayPathfinder()
         G = Mock()
         self.assertRaises(AttributeError, EDPF.search, G, -10,'a', 'b', -5)

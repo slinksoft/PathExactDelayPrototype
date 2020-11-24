@@ -55,6 +55,16 @@ class ExactDelayPathfinder:
         return result
 
     def _search(self, delay, curr, target, path, visits):
+        """ Depth-first search algorithm that will traverse a graph (topology) to find all
+            possible paths between the starting node and target node
+
+           Parameters:
+              delay: the current delay we are on
+              curr: The current node we are on
+              target: The target node for the path
+              path: The path we are building during each edge traversal
+              visits: records each node we have visited so no cycling occurs
+        """
         if (curr == target and path != []):
             error = abs(delay) # The target was reached
             if not bool(self._paths) or error < self._paths[0]["error"]:
