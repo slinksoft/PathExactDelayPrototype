@@ -72,15 +72,19 @@ class ExactDelayPathfinder:
                 path.append(curr)
                 # The path in front is the one with the lowest error
                 self._paths.insert(0, {"path":path.copy(), "error":error, "offset":delay})
+                # Clean up after the target was reached
+                del path[-1]
                 # Ensure that the list is at most the specified number elements in length (default is 10)
                 if len(self._paths) > self._max_results:
                     del self._paths[-1]
             return
+        path.append(curr) # Found a potential path with this as the starting node
+        visits[str(curr)] += 1
+
         for neighbor in list(self._graph.neighbors(curr)):
             if (visits[str(neighbor)] < self._visit_limit):
-                visits[str(neighbor)] += 1
                 edge_delay = self._graph.edges[curr, neighbor]['delay']
-                path.append(curr) # Found a potential path with this as the starting node
                 self._search(delay - edge_delay, neighbor, target, path, visits)
-                del path[-1] # Clean up after an end was reached (target or dead end)
-                visits[str(neighbor)] -= 1
+
+        del path[-1] # Clean up after a dead end was reached
+        visits[str(curr)] -= 1
